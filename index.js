@@ -1,19 +1,24 @@
 'use strict';
 
 
-function displayResults(jsonObj) {
+function displayResult(jsonObj, breed) {
 
     console.log(jsonObj);
 
-    /* Build the HTML string for the images and 
-       Replace the random dog container div with contents from the jsonObj */
+    /* Build the HTML string for the image and 
+       Replace the random dog container div with contents from the jsonObj  */
 
-    let images_html = `<h1>Here are your ${jsonObj.message.length} random dog pics:</h1>`;
+    let image_html;
 
-    for (let i=0; i<jsonObj.message.length; i++)
-        images_html += `<img class="dogpic" src="${jsonObj.message[i]}">`;
+    if (jsonObj.status === "success") {
+        image_html = `<h1>Here is your random ${breed} pic:</h1>`;
+        image_html += `<img class="dogpic" src="${jsonObj.message}">`;
+    } 
+    else {
+        image_html = `<h1>Sorry, the breed "${breed}" was not found in the image database.</h1>`;
+    }
 
-    $('.random-dog-container').html(images_html);
+    $('.random-dog-container').html(image_html);
 
 }
 
@@ -21,10 +26,11 @@ function handleDogApp() {
 
     $('form').submit(e => {
         e.preventDefault();
-        console.log("Number of dog pics requested is: " + $('#quantity').val());
-        fetch(`https://dog.ceo/api/breeds/image/random/${$('#quantity').val()}`)
+        let breed = $('#breed').val();
+        console.log("Breed requested is: " + breed);
+        fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
             .then(response => response.json())
-            .then(responseJson => displayResults(responseJson))
+            .then(responseJson => displayResult(responseJson, breed));
     })
 }
 
