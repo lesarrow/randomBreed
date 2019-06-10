@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Show me some random dogs</title>
+        <meta name="description" content="Request a number of random dogs and then show them">
+        <link rel="stylesheet" type="css/text" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+        <link rel="stylesheet" type="css/text" href="style.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <form>
+            <label for="quantity">Number of random dogs to display</label>
+            <input type="number" id="quantity" name="quantity" value="3" min="1" max="50" required>
+            <input type="submit">
+        </form>
+        <div class="random-dog-container"></div>
+    </body>
+</html>
